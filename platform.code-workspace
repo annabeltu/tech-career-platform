@@ -1,0 +1,93 @@
+{
+  "folders": [
+    {
+      "name": "frontend",
+      "path": "frontend"
+    },
+    {
+      "name": "api",
+      "path": "api"
+    },
+    {
+      "name": "core",
+      "path": "packages/core"
+    },
+    {
+      "name": "repo",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "tailwindCSS.experimental.configFile": "frontend/src/styles/tailwind.css",
+    "tailwindCSS.includeLanguages": {
+      "scss": "css"
+    },
+    "files.exclude": {
+      "**/.git": true,
+      "**/__pycache__": true,
+      "**/.pytest_cache": true,
+      "**/.ruff_cache": true,
+      "**/node_modules": true,
+      "**/.angular": true
+    },
+    "search.exclude": {
+      "**/.venv": true,
+      "**/__pycache__": true,
+      "**/.pytest_cache": true,
+      "**/.ruff_cache": true,
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.angular": true
+    },
+    "python.defaultInterpreterPath": "/workspaces/tech-career-platform/.venv/bin/python",
+    "python.analysis.extraPaths": [
+      "/workspaces/tech-career-platform/api/src",
+      "/workspaces/tech-career-platform/packages/core/src"
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "angular.ng-template",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "charliermarsh.ruff",
+      "tamasfe.even-better-toml",
+      "ms-python.debugpy"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "API: FastAPI",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": ["api.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"],
+        "jinja": true,
+        "env": {
+          "PYTHONPATH": "/workspaces/tech-career-platform/api/src:/workspaces/tech-career-platform/packages/core/src"
+        }
+      },
+      {
+        "name": "Frontend: serve",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+        "args": ["serve", "--host", "0.0.0.0", "--port", "4200"],
+        "cwd": "/workspaces/tech-career-platform/frontend"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "Debug Frontend + API",
+        "configurations": [
+          "Frontend: serve",
+          "API: FastAPI"
+        ]
+      }
+    ]
+  }
+}
