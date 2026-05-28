@@ -5,12 +5,18 @@ description = "FastAPI adapter for Tech Career Platform"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.12"
+scripts = { dev-api = "api.cli:main" }
 dependencies = [
   "fastapi>=0.115,<1",
   "uvicorn>=0.30,<1",
   "pyjwt>=2.12.1",
   "python-multipart>=0.0.12",
   "httpx>=0.28.1",
+  "sqlmodel>=0.0.19",
+  "bcrypt>=4.1.0",
+  "pydantic-settings>=2.2.0",
+  "pydantic[email]>=2.7.0",
+  "openai>=1.30.0",
   "core",
 ]
 

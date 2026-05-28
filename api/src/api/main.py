@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Annabel Tu
+# SPDX-License-Identifier: MIT
 """Application entrypoint for the FastAPI adapter.
 
 Creates and configures the FastAPI application by composing routes,
@@ -7,22 +9,34 @@ dedicated modules; this file reads as a high-level wiring overview.
 from __future__ import annotations
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
-from core.config import Settings
-from core.errors import AuthorizationError
+from core.config import Settings, get_settings
+from core.errors import NotFoundError, AuthorizationError
 from api.routes import API_ROUTERS
 
 
 def create_app(settings: Settings) -> FastAPI:
-    """Creates and configures the FastAPI application."""
+    """Creates and configures the Waypoint FastAPI application."""
+    from api.lifespan import lifespan
+
     application = FastAPI(
-        title=settings.app_name,
-        description="Tech career prep and job search platform for college students.",
+        title="Waypoint — Tech Career Platform API",
+        version="0.1.0",
+        lifespan=lifespan,
     )
 
-    # Allow Angular dev server to call the API
+    # Map domain errors to HTTP responses
+    @application.exception_handler(AuthorizationError)
+    async def authorization_error_handler(_request: Request, exc: AuthorizationError) -> JSONResponse:
+        return JSONResponse(status_code=403, content={"detail": str(exc)})
+
+    @application.exception_handler(NotFoundError)
+    async def not_found_error_handler(_request: Request, exc: NotFoundError) -> JSONResponse:
+        return JSONResponse(status_code=404, content={"detail": str(exc)})
+
+    # CORS
     application.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
@@ -31,19 +45,16 @@ def create_app(settings: Settings) -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Map domain authorization errors to 403 responses
-    @application.exception_handler(AuthorizationError)
-    async def authorization_error_handler(
-        _request: Request, exc: AuthorizationError
-    ) -> JSONResponse:
-        return JSONResponse(status_code=403, content={"detail": str(exc)})
-
-    # Mount REST API routes under /api
+    # Mount all REST routers under /waypoint
     for router in API_ROUTERS:
-        application.include_router(router, prefix="/api")
+        application.include_router(router)
+
+    @application.get("/health", tags=["Health"])
+    def health():
+        return {"status": "ok", "version": "0.1.0"}
 
     return application
 
 
-settings = Settings()
+settings = get_settings()
 app = create_app(settings)

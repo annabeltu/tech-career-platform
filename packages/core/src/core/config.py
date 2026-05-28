@@ -46,6 +46,7 @@ class Settings(BaseSettings):
     host: str = "localhost:4200"
     jwt_secret: str = "reallysecuresecret-dev-default-key"
     jwt_algorithm: str = "HS256"
+    jwt_expire_minutes: int = 60 * 24  # 24 hours
 
     #OpenAI
     openai_api_key: str | None = Field(default=None, validation_alias=AliasChoices("AZURE_OPENAI_API_KEY", "OPENAI_API_KEY"))

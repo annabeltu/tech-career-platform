@@ -10,7 +10,12 @@ package = false
 [tool.uv.workspace]
 members = [
   "api",
-  "packages/core"
+  "packages/core",
+]
+
+[dependency-groups]
+dev = [
+  "uvicorn>=0.30,<1",
 ]
 
 [tool.pytest.ini_options]
@@ -37,7 +42,3 @@ omit = [
 fail_under = 80
 show_missing = true
 skip_covered = false
-
-[build-system]
-requires = ["uv_build>=0.10.9,<0.11.0"]
-build-backend = "uv_build"
