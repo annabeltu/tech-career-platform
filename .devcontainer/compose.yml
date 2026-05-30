@@ -10,6 +10,9 @@ services:
       - tcp-pnpm-store:/home/vscode/.local/share/pnpm/store
     working_dir: /workspaces/tech-career-platform
     command: sleep infinity
+    ports:
+      - "8000:8000"
+      - "4200:4200"
     environment:
       PYTHONUNBUFFERED: "1"
       UV_LINK_MODE: copy
@@ -17,7 +20,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
   postgres:
     image: postgres:16
     restart: unless-stopped
@@ -34,7 +36,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
-
 volumes:
   tcp-postgres-data:
   tcp-uv-cache:
