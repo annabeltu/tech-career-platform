@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.shell-container {
+  height: 100vh;
+}
+
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+
+.sidenav {
+  width: 220px;
+  background: #1a1a2e;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 20px 16px;
+  color: white;
+
+  .brand-icon {
+    color: #e91e8c;
+    font-size: 22px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+.nav-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 8px;
+  margin: 2px 10px;
+  transition: all 0.2s ease;
+
+  mat-icon {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: white !important;
+  }
+
+  &.active-link {
+    background: rgba(233, 30, 140, 0.15) !important;
+    color: #e91e8c !important;
+
+    mat-icon {
+      color: #e91e8c;
+    }
+  }
+}
+
+.sidenav-footer {
+  margin-top: auto;
+  padding: 16px;
+}
+
+.logout-btn {
+  color: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  justify-content: flex-start;
+  gap: 8px;
+
+  &:hover {
+    color: white;
+  }
+}
+
+// ── Toolbar ───────────────────────────────────────────────────────────────────
+
+.toolbar {
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  height: 60px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.toolbar-icon {
+  color: #666;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e91e8c, #4a90d9);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+// ── Page content ──────────────────────────────────────────────────────────────
+
+.main-content {
+  background: #f8f9fc;
+}
+
+.page-content {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}

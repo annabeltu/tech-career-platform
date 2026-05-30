@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  background: #f8f9fc;
+}
+
+// Waypoint color tokens
+:root {
+  --wp-pink: #e91e8c;
+  --wp-blue: #4a90d9;
+  --wp-dark: #1a1a2e;
+  --wp-surface: #ffffff;
+  --wp-background: #f8f9fc;
+  --wp-text: #1a1a2e;
+  --wp-text-muted: #6b7280;
+  --wp-border: #e5e7eb;
+}

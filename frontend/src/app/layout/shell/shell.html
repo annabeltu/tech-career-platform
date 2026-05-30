@@ -1,0 +1,43 @@
+<mat-sidenav-container class="shell-container">
+
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">
+      <span class="brand-icon">✦</span>
+      <span class="brand-name">Waypoint</span>
+    </div>
+
+    <mat-nav-list>
+      @for (item of navItems; track item.route) {
+        <mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive="active-link"
+          class="nav-item">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <button mat-button class="logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Log Out
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar class="toolbar">
+      <span class="toolbar-spacer"></span>
+      <mat-icon class="toolbar-icon">notifications</mat-icon>
+      <div class="user-avatar">W</div>
+    </mat-toolbar>
+
+    <div class="page-content">
+      <router-outlet />
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
